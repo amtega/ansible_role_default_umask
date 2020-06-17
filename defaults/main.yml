@@ -1,2 +1,9 @@
 ---
 # Role default lower priority variables
+# Define default umask malue according with CIs documet recomendation
+default_umask_value: '027'
+
+# Define files to apply the default_umask_value
+default_umask_files:
+  - /etc/profile
+  - /etc/bashrc
