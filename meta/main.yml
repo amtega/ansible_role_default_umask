@@ -2,16 +2,15 @@
 # Role dependencies
 
 galaxy_info:
-  role_name: role
-  author: author name
-  description: role description
+  role_name: default_umask
+  author: José Enrique Mourón Regueira
+  description: Set defaul value for umask in system and shell config files
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
   min_ansible_version: 2.9
   platforms:
     - name: EL
       versions:
-        - 6
         - 7
     - name: Fedora
       versions:
