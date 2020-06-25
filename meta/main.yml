@@ -3,8 +3,8 @@
 
 galaxy_info:
   role_name: default_umask
-  author: José Enrique Mourón Regueira
-  description: Set defaul value for umask in system and shell config files
+  author: José Enrique Mourón Regueira / Juan Antonio Valiño García
+  description: Set umask default value in system and shell config files
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
   min_ansible_version: 2.9
@@ -16,6 +16,15 @@ galaxy_info:
       versions:
         - 29
         - 30
-  galaxy_tags: []
+  galaxy_tags:
+    - system
+    - umask
+    - security
 
-dependencies: []
+dependencies:
+  - role: amtega.check_platform
+    vars:
+      check_platform_distributions:
+        centos: 7
+        fedora: 29
+        rhel: 7
