@@ -1,21 +1,12 @@
 # Ansible <!-- this role name --> role
 
-This is an [Ansible](http://www.ansible.com) role which set default umask value.
-
-## Requirements
-
-[Ansible 2.9+](http://docs.ansible.com/ansible/latest/intro_installation.html)
+This is an [Ansible](http://www.ansible.com) role to setup umask default value in system and shell config files
 
 ## Role Variables
 
 A list of all the default variables for this role is available in `defaults/main.yml`.
 
-
-
-
 ## Usage
-
-<!-- Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too. For example: -->
 
 This is an example playbook:
 
@@ -25,18 +16,18 @@ This is an example playbook:
 - hosts: all
   roles:
     - role: amtega.default_umask
-
+      vars:
+        default_umask_value: "027"
 ```
 
 ## Testing
 
-Tests are based on docker containers. You can setup docker engine quickly using the playbook `files/setup.yml` available in the role [amtega.docker_engine](https://galaxy.ansible.com/amtega/docker_engine).
-
-Once you have docker, you can run the tests with the following commands:
+Tests are based on [molecule with docker containers](https://molecule.readthedocs.io/en/latest/installation.html).
 
 ```shell
-$ cd amtega.default_umask/tests
-$ ansible-playbook main.yml
+cd amtega.default_umask
+
+molecule test
 ```
 
 ## License
@@ -52,3 +43,4 @@ This role is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 ## Author Information
 
 - José Enrique Mourón Regueira
+- Juan Antonio Valiño García

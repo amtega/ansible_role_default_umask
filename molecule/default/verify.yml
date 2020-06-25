@@ -1,0 +1,20 @@
+---
+
+- name: Verify
+  hosts: molecule_hosts
+  gather_facts: no
+  tasks:
+    - name: Check /etc/profile file content
+      shell: cat "{{ default_umask_files[0] }}"
+      register: read_default_umask_file_result
+      args:
+        warn: no
+      changed_when: false
+
+    - name: Assert /etc/profile  content is correct
+      assert:
+        that:
+          - stdout is search("umask")
+          - stdout is search(default_umask_value)
+      vars:
+        stdout: "{{ read_default_umask_file_result.stdout }}"

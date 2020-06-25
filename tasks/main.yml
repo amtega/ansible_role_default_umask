@@ -1,11 +1,39 @@
 ---
 # Role tasks
-- block:
 
-    - include_tasks: adjust_umask.yml
+- block:
+    - name: Check umask file content
+      shell: "cat {{ default_umask_file_path }} | grep -v '^#'"
+      register: default_umask_read_file_result
       loop: "{{ default_umask_files }}"
       loop_control:
         loop_var: default_umask_file_path
+      changed_when: no
 
+    - name: Replace umask entries where needed
+      replace:
+        path: "{{ default_umask_file_path }}"
+        regexp: '^(\s*umask)(.*)$'
+        replace: '\1 {{ default_umask_value }}'
+      when: >-
+        default_umask_read_file_result.results[default_umask_file_index].stdout
+        is search("umask")
+      loop: "{{ default_umask_files }}"
+      loop_control:
+        loop_var: default_umask_file_path
+        index_var: default_umask_file_index
+
+    - name: Insert umask entries where needed
+      lineinfile:
+        path: "{{ default_umask_file_path }}"
+        insertafter: EOF
+        line: "umask {{ default_umask_value }}"
+      when: >-
+        default_umask_read_file_result.results[default_umask_file_index].stdout
+        is not search("umask")
+      loop: "{{ default_umask_files }}"
+      loop_control:
+        loop_var: default_umask_file_path
+        index_var: default_umask_file_index
   tags:
-    - role::default_umask
+    role::default_umask
