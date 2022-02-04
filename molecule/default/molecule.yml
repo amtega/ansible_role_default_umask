@@ -27,14 +27,12 @@ platforms:
       - molecule_hosts_centos_7
   - name: "fedora34-${INSTANCE_UUID:-1}"
     image: quay.io/fedora/fedora:34
-    dockerfile: Dockerfile.systemd.j2
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
       - molecule_hosts_fedora_34
   - name: "fedora35-${INSTANCE_UUID:-1}"
     image: quay.io/fedora/fedora:35
-    dockerfile: Dockerfile.systemd.j2
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
