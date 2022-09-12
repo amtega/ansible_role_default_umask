@@ -5,14 +5,14 @@
   gather_facts: no
   tasks:
     - name: Check /etc/profile file content
-      command: cat "{{ default_umask_files[0] }}"
+      ansible.builtin.command: cat "{{ default_umask_files[0] }}"
       register: read_default_umask_file_result
       args:
         warn: no
       changed_when: no
 
     - name: Assert /etc/profile  content is correct
-      assert:
+      ansible.builtin.assert:
         that:
           - stdout is search("umask")
           - stdout is search(default_umask_value)

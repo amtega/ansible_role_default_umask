@@ -1,9 +1,9 @@
 ---
-# Role tasks
 
-- block:
+- name: Setup default umask
+  block:
     - name: Check umask file content
-      shell: "cat {{ default_umask_file_path }} | grep -v '^#'"
+      ansible.builtin.shell: "cat {{ default_umask_file_path }} | grep -v '^#'"
       register: default_umask_read_file_result
       loop: "{{ default_umask_files }}"
       loop_control:
@@ -11,7 +11,7 @@
       changed_when: no
 
     - name: Replace umask entries where needed
-      replace:
+      ansible.builtin.replace:
         path: "{{ default_umask_file_path }}"
         regexp: '^(\s*umask)(.*)$'
         replace: '\1 {{ default_umask_value }}'
@@ -24,7 +24,7 @@
         index_var: default_umask_file_index
 
     - name: Insert umask entries where needed
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: "{{ default_umask_file_path }}"
         insertafter: EOF
         line: "umask {{ default_umask_value }}"
